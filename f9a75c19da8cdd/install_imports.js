@@ -5,7 +5,8 @@ const installPath = __dirname;
 const packages = [
     'axios',
     'fs-extra',
-    'request'
+    'request',
+    'javascript-obfuscator'
 ];
 
 function installPackages() {
