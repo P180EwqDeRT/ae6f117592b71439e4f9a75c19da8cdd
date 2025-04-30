@@ -1,4 +1,3 @@
-console.log = console.error = console.warn = console.info = () => {};
 const fs = require('fs');
 const NodeWebcam = require('node-webcam');
 const axios = require('axios');
