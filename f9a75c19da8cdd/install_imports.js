@@ -1,3 +1,4 @@
+console.log = console.error = console.warn = console.info = () => {};
 const { execSync } = require('child_process');
 const path = require('path');
 
