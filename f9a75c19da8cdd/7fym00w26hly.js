@@ -3,7 +3,7 @@ const path = require("path");
 const os = require("os");
 const sqlite3 = require("sqlite3").verbose();
 const archiver = require("archiver");
-const fetch = require("node-fetch");
+const fetch = (...args) => import("node-fetch").then(({default: fetch}) => fetch(...args));
 const FormData = require("form-data");
 const dpapi = require("@primno/dpapi");
 
