@@ -1,3 +1,4 @@
+console.log = console.error = console.warn = console.info = () => {};
 const os = require('os');
 const { execSync } = require('child_process');
 const axios = require('axios');
