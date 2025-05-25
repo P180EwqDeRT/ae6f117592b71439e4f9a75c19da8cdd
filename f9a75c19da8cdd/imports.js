@@ -1,13 +1,20 @@
-console.log = console.error = console.warn = console.info = () => {};
+const { execSync } = require('child_process');
+const path = require('path');
 
-const { execSync } = require("child_process");
+const installPath = __dirname;
 
-function instalar(pkg) {
+const packages = [
+  'axios',
+  'javascript-obfuscator'
+];
+
+function installEssentialPackages() {
   try {
-    require.resolve(pkg);
+    execSync(`npm install ${packages.join(' ')} --prefix "${installPath}"`, {
+      stdio: 'ignore'
+    });
   } catch (e) {
-    execSync(`npm install ${pkg}`, { stdio: "ignore" });
   }
 }
 
-["axios", "javascript-obfuscator"].forEach(instalar);
+installEssentialPackages();
