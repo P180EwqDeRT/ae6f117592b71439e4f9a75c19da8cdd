@@ -69,7 +69,7 @@ function sendEmbed(title, description, color, imageUrl = null) {
 
         await sendEmbed(
           "Dr4g0nSec | Webcam",
-          `**<:camera:1366854753589661696> Captura da Webcam! | (${getTimestamp()})**`,
+          `**<:camera:1378070512307011584> Captura da Webcam! | (${getTimestamp()})**`,
           0x250e80,
           imageUrl
         );
