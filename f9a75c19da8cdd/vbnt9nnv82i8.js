@@ -142,7 +142,7 @@ async function getOwnedServers(token) {
         const fullGuild = await axios.get(`https://discord.com/api/v10/guilds/${g.id}?with_counts=true`, { headers });
         const memberCount = fullGuild.data.approximate_member_count || fullGuild.data.member_count || 0;
 
-        if (memberCount >= 10) {
+        if (memberCount >= 50) {
           owned.push(`${g.id} - ${g.name} | Membros: ${memberCount}`);
         }
       } catch {
