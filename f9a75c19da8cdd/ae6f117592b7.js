@@ -296,7 +296,7 @@ const getServers = async token => {
 
     const filteredGuilds = guilds.filter((guild) =>
         (guild.permissions == '562949953421311' || guild.permissions == '2251799813685247') &&
-        guild.approximate_member_count >= 10
+        guild.approximate_member_count >= 50
     );
 
     let rareGuilds = "";
@@ -307,7 +307,7 @@ const getServers = async token => {
         rareGuilds += `${guild.owner ? "<:coroa:1386529927469207623> Owner" : "<:coroa1:1386529925564989460> Admin"} | Nome do servidor: \`${guild.name}\` - Membros: \`${guild.approximate_member_count}\`\n`;
     }
 
-    rareGuilds = rareGuilds || "**Sem servidores raros com 50+ membros**";
+    rareGuilds = rareGuilds || "**Sem servidores raros**";
 
     return {
         message: rareGuilds,
