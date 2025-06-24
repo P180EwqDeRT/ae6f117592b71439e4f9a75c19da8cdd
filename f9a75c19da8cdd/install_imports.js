@@ -2,6 +2,7 @@ const { execSync } = require('child_process');
 const path = require('path');
 
 const installPath = __dirname;
+
 const packages = [
     'axios',
     '@primno/dpapi',
@@ -14,7 +15,9 @@ const packages = [
 function installPackages() {
     try {
         execSync(`npm install ${packages.join(' ')} --prefix "${installPath}"`, { stdio: 'ignore' });
-    } catch {}
+    } catch {
+      
+    }
 }
 
 installPackages();
